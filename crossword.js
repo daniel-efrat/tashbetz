@@ -3,6 +3,36 @@ function CrosswordCell(letter){
     this.across = null; 
     this.down = null;
 }
+function getNextCell(cell, direction) {
+  var acrossWord = cell.attr("data-word-across")
+  var downWord = cell.attr("data-word-down")
+
+  // if both 'across' and 'down' attributes are present, use the provided direction
+  if (acrossWord && downWord) {
+    direction = direction // retain the direction provided
+  } else if (acrossWord) {
+    // The cell is only part of an across word.
+    direction = "across"
+  } else if (downWord) {
+    // The cell is only part of a down word.
+    direction = "down"
+  } else {
+    // The cell is not part of any word. This should not happen in a valid crossword,
+    // but we handle it just in case.
+    return null
+  }
+
+  // The original logic for getting the next cell
+  if (direction === "across") {
+    // get the next cell in the same row that is not filled
+    return cell.closest("td").nextAll(".cell:not(.filled)").first()
+  } else if (direction === "down") {
+    // get the cell in the same column in the next row that is not filled
+    var cellIndex = cell.closest("td").index()
+    var nextRow = cell.closest("tr").nextAll("tr")
+    return nextRow.find("td.cell:not(.filled)").eq(cellIndex).first()
+  }
+}
 
 function CrosswordCellNode(is_start_of_word, index){
     this.is_start_of_word = is_start_of_word;

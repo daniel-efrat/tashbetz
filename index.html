@@ -9,321 +9,57 @@
     <lang="he" dir="rtl"></lang=>
     <script src="jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
-    <link rel="stylesheet" type="text/css" href="css/font.css" />
-    <style>
-      @font-face{
-      	font-family: 'Roboto';
-      	src: url('Roboto-Regular.ttf');
-      }
-
-      body{
-      	font-family: Alef;
-      	padding-top: 50px;
-      	padding-bottom: 70px;
-      	user-select: none;
-      }
-
-	  #ttscontainer{
-		display: flex;
-		gap:1rem;
-		align-items: center;
-	  }
-
-	  @media (max-width:750px){
-		#ttscontainer{
-		display: flex;
-		flex-direction:column;
-		gap:1rem;
-		align-items: center;
-	  }
-	  }
-	 .table {
-		overflow-x: auto;
-	 }
-      /* SCROLLBAR STYLING */
-      /* width */
-      ::-webkit-scrollbar {
-      	width: 2px;
-      	height: 2px;
-      }
-      /* Track */
-      ::-webkit-scrollbar-track {
-      	background: white;
-      }
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-      	background: black;
-      }
-      /* Handle on hover */
-      ::-webkit-scrollbar-thumb:hover {
-      	background: #555;
-      }
-
-      #appbar{
-      	position: fixed;
-      	top: 0;
-      	left: 0;
-      	right: 0;
-      	background-color: #2a797a;
-      	color: white;
-      	z-index: 313;
-      	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      }
-      .abitem{
-      	padding: 20px;
-      	display: inline-block;
-		cursor: pointer;
-
-      }
-      .noad{
-      	text-align: center;
-      }
-      .noad button{
-      	border: none;
-      	background-color: blue;
-      	color: white;
-      	padding: 10px;
-      	border-radius: 5px;
-      	margin: 5px;
-      }
-      #drawer{
-      	background-color: #e6e6e6;
-      	width: 512px;
-      	max-width: 85%;
-      	position: fixed;
-      	right: 0;
-      	top: 0;
-      	bottom: 0;
-      	padding-top: 70px;
-      	display: none;
-      	overflow: auto;
-      	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      }
-
-      #crossword {
-      	text-align:left;
-      }
-	  @media (max-width:400px) {
-		#crossword {
-			transform: scale(.5)
-		}
-	  }
-      .crossword {
-      	border-collapse:collapse;
-      	font-family:"Courier New", Courier, monospace;
-      	margin-top:10px;
-      	margin-bottom:10px;
-      }
-
-      .crossword td {
-      	border:1px solid black;
-      	padding:0;
-      	margin:0;
-      	vertical-align:middle;
-      	padding:0;
-      	text-align:center;
-      	width:30px;
-      	height:30px;
-      }
-
-      .no-border{
-      	background-color: black;
-      }
-
-      .crossword .no-border {
-      	border:none;
-      }
-
-      #clues {
-      	font-size: 18px;
-      	margin: 0 auto;
-		text-align: right;
-      }
-
-      #clues td {
-      	vertical-align:top;
-      	margin: 0 auto;
-      	text-align: left:
-      }
-
-      .canswer{
-      	display: none;
-      }
-      button{
-      	box-sizing: border-box;
-      	width: max-content;
-      	padding: 20px;
-      	border: none;
-      	outline: none;
-      	background-color: #2a427a;
-      	color: white;
-      	margin-top: 5px;
-      	margin-bottom: 5px;
-		box-shadow: 2px 2px 6px rgb(0,0,0,0.3);
-		transition: all .3s ease;
-      }
-	  button:hover{
-		box-shadow: 6px 6px 10px rgb(0,0,0,0.3)
-	  }
-      #vkeyboard{
-      	position: fixed;
-      	top: 0;
-      	left: 0;
-      	right: 0;
-      	bottom: 0;
-      	background-color: rgba(256,256,256,.85);
-      	text-align: center;
-      	display: none;
-      	padding: 10px;
-      	z-index: 13;
-      }
-      .kbtn{
-      	padding: 10px;
-      	border: 1px solid black;
-      	margin: 5px;
-      	display: inline-block;
-      	width: 30px;
-
-      }
-      th{
-      	text-align: right;
-      	font-weight: bold;
-		text-decoration: underline;
-      }
-      ul,li { list-style-type: none;
-      list-style-position:inside;
-      margin:0;
-      margin-right: 5px;
-      padding:0; }
-
-      #game{
-      	margin-bottom: 10px;
-      	padding: 10px;
-      	display: none;
-      }
-
-      .ditem{
-      	padding: 10px;
-      	border-bottom: 1px solid black;
-      	margin-bottom: 3px;
-		cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
     <script src="crossword.js"></script>
+    <script src="puzzle.js"></script>
     <script src="ttss.js"></script>
-    <script>
-      var appdata = {
-        maincolor: "2a797a",
-        qcount: 5,
-      }
-
-      if (localStorage.getItem("ttsasyik") === null) {
-        saveData()
-      } else {
-        appdata = JSON.parse(localStorage.getItem("ttsasyik"))
-      }
-
-      function saveData() {
-        localStorage.setItem("ttsasyik", JSON.stringify(appdata))
-      }
-
-      function startttsgame() {
-        // words[i] correlates to clues[i]
-        var words = []
-        var clues = []
-
-        for (var i = 0; i < appdata.qcount; i++) {
-          var rn = genrandom(ttss.length - 1)
-          var q = ttss[rn]
-          words.push(q.word)
-          clues.push(q.clue)
-          ttss.splice(rn, 1)
-        }
-
-        function genrandom(maxnum) {
-          return Math.floor(Math.random() * maxnum)
-        }
-
-        // Create crossword object with the words and clues
-        var cw = new Crossword(words, clues)
-
-        // create the crossword grid (try to make it have a 1:1 width to height ratio in 10 tries)
-        var tries = 30
-        var grid = cw.getSquareGrid(tries)
-
-        // report a problem with the words in the crossword
-        if (grid == null) {
-          var bad_words = cw.getBadWords()
-          var str = []
-          for (var i = 0; i < bad_words.length; i++) {
-            str.push(bad_words[i].word)
-          }
-          //alert("Shoot! A grid could not be created with these words:\n" + str.join("\n"));
-          location.reload()
-          return
-        }
-
-        // turn the crossword grid into HTML
-        var show_answers = true
-        document.getElementById("crossword").innerHTML = CrosswordUtils.toHtml(
-          grid,
-          show_answers
-        )
-
-        // make a nice legend for the clues
-        var legend = cw.getLegend(grid)
-        addLegendToPage(legend)
-
-        function addLegendToPage(groups) {
-          for (var k in groups) {
-            var html = []
-            for (var i = 0; i < groups[k].length; i++) {
-              html.push(
-                "<li><strong>" +
-                  groups[k][i]["position"] +
-                  ".</strong> " +
-                  groups[k][i]["clue"] +
-                  "</li>"
-              )
-            }
-            document.getElementById(k).innerHTML = html.join("\n")
-          }
-        }
-      }
     </script>
   </head>
   <body>
     <div class="screen" id="game">
       <div id="ttscontainer">
-        <div id="crossword"></div>
-		<div class="table">
-			  <table id="clues">
-				<thead>
-				  <tr>
-					<th>מאוזן</th>
-					<th>מאונך</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<td><ul id="across"></ul></td>
-					<td><ul id="down"></ul></td>
-				  </tr>
-				</tbody>
-			  </table>
+        <div class="puzzle">
+			<div id="crossword"></div>
+			  <div class="buttons">
+		<button onclick="toggleAnswer()">
+		  <i class="fa fa-eye"></i><i class="fa fa-eye-slash"></i><span class="solution">הצג פתרון</span> 
+		</button>
+		<button onclick="location.reload()">
+		  <i class="fa fa-refresh"></i> <span style="margin-right:.3rem">החלף תשבץ</span> 
+		</button>
+	  </div>
+	  </div>
+		<div class="tables">
+			<div class="table">
+				  <table id="clues">
+					<thead>
+					  <tr>
+						<th>מאוזן</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td><ul id="across"></ul></td>
+					  </tr>
+					</tbody>
+				  </table>
+			</div>
+			<div class="table2">
+				  <table id="clues">
+					<thead>
+					  <tr>
+						<th>מאונך</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td><ul id="down"></ul></td>
+					  </tr>
+					</tbody>
+				  </table>
+			</div>
 		</div>
       </div>
-
-      <button onclick="toggleAnswer()">
-        <i class="fa fa-eye"></i><i class="fa fa-eye-slash"></i><span style="margin-right:.3rem">תשובות</span> 
-      </button>
-      <button onclick="location.reload()">
-        <i class="fa fa-refresh"></i> <span style="margin-right:.3rem">החלף תשבץ</span> 
-      </button>
 
       <div id="vkeyboard">
         <h3>Enter the correct letter</h3>
@@ -338,9 +74,10 @@
       <span class="abitem" onclick="toggledrawer()"
         ><i class="fa fa-bars"></i
       ></span>
-      <span class="abitem">תשבץ</span>
+      <span class="abitem2">תשבץ</span>
       <span class="abitem" style="float: right" onclick="toggleAnswer()"
         ><i class="fa fa-eye"></i
+      ><i class="fa fa-eye-slash"></i
       ></span>
     </div>
     <div id="drawer">
@@ -359,6 +96,10 @@
     </div>
 
     <script>
+		function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
       function setqcount(n) {
         appdata.qcount = n
         saveData()
@@ -381,6 +122,7 @@
       }
       function toggledrawer() {
         $("#drawer").toggle()
+		$('#drawer').addClass("enter")
       }
     </script>
 
@@ -393,29 +135,49 @@
           $(".uanswer").show()
 		  $('.fa-eye-slash').hide()
 		  $('.fa-eye').show()
+		  $('.solution').html('הצג פתרון')
+
           canswershown = false
         } else {
           $(".canswer").show()
           $(".uanswer").hide()
 		  $('.fa-eye-slash').show()
 		  $('.fa-eye').hide()
+		  $('.solution').html('הסתר פתרון')
 		  
           canswershown = true
         }
       }
-      function activatetts() {
-        $("td").click(function () {
-          if (
-            $(this).find(".canswer").html() != "&nbsp;" &&
-            $(this).find(".canswer").html() != undefined
-          ) {
-            console.log("Clicked: " + $(this).find(".canswer").html())
-            console.log($(this).find(".uanswer").attr("id"))
-            selectedua = $(this).find(".uanswer").attr("id")
-            $("#vkeyboard").show()
-          }
-        })
-      }
+  function activatetts() {
+    $("td").each(function() {
+        $(this).attr('tabindex', '0');
+        $(this).attr('contentEditable', 'true');
+
+        $(this).on('keydown', function(event) {
+            var key = event.key;
+
+            // Regular expression to detect a Hebrew character
+            var hebrewCharRegex = /[\u0590-\u05FF]/;
+
+            // If the key is a single Hebrew letter (and not a control key), or the Backspace/Delete key
+            if ((key.length === 1 && key.match(hebrewCharRegex)) || key === 'Backspace' || key === 'Delete') {
+                // If a Hebrew letter key was pressed, replace the cell's content with the new letter.
+                // If the Backspace or Delete key was pressed, clear the cell's content.
+                $(this).text("");
+                if (key.length === 1 && key.match(hebrewCharRegex)) {
+                    $(this).append(key);
+                }
+            }
+
+            // Prevent propagation of the event, so the letter doesn't get appended twice (or deleted twice)
+            event.preventDefault();
+        });
+    });
+}
+
+
+
+
 
       var selectedua = -1
       function typechar(c) {
