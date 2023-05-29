@@ -1,236 +1,155 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>CrosswordGame</title>
+<html lang="he" dir="rtl">
+   <head>
+    <title>תשבץ לי</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <lang="he" dir="rtl"></lang=>
+    <meta charset="UTF-8">
     <script src="jquery.js"></script>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <script src="crossword.js"></script>
-    <script src="puzzle.js"></script>
-    <script src="ttss.js"></script>
-    </script>
+    <link rel="stylesheet" type="text/css" href="css/grid.css" />
+	 <link rel="icon" href="data:,">
+    <script defer src="js/crossword.js"></script>
+    <script defer src="js/puzzle.js"></script>
+    <script defer src="js/ttss.js"></script>
+    <script defer src="js/pdf.js"></script>
+    <script defer src="js/express.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script defer src="js/index.js"></script>
   </head>
   <body>
     <div class="screen" id="game">
-      <div id="ttscontainer">
-        <div class="puzzle">
-			<div id="crossword"></div>
-			  <div class="buttons">
-		<button onclick="toggleAnswer()">
-		  <i class="fa fa-eye"></i><i class="fa fa-eye-slash"></i><span class="solution">הצג פתרון</span> 
-		</button>
-		<button onclick="location.reload()">
-		  <i class="fa fa-refresh"></i> <span style="margin-right:.3rem">החלף תשבץ</span> 
-		</button>
-	  </div>
-	  </div>
-		<div class="tables">
-			<div class="table">
-				  <table id="clues">
-					<thead>
-					  <tr>
-						<th>מאוזן</th>
-					  </tr>
-					</thead>
-					<tbody>
-					  <tr>
-						<td><ul id="across"></ul></td>
-					  </tr>
-					</tbody>
-				  </table>
-			</div>
-			<div class="table2">
-				  <table id="clues">
-					<thead>
-					  <tr>
-						<th>מאונך</th>
-					  </tr>
-					</thead>
-					<tbody>
-					  <tr>
-						<td><ul id="down"></ul></td>
-					  </tr>
-					</tbody>
-				  </table>
-			</div>
-		</div>
-      </div>
+      <div class="wrapper">
+        <div class="under"></div>
+        <div class="bg"></div>
+        <div class="overlay"></div>
+        <div class="curtain">
+          <div class="test">Hi</div>
+          <div class="lds-grid">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          </div>
+          <div class="mehashev">
+            <p class="c c1">מְ</p>
+            <p class="c c2">חַ</p>
+            <p class="c c3">שֵּׁ</p>
+            <p class="c c4">ב</p>
+            <p class="c c5">.</p>
+            <p class="c c6">.</p>
+            <p class="c c7">.</p>
+          </div>
+          <br>
+          <div class="metashbetz">
+            <p class="cc c8">מְ</p>
+            <p class="cc c9">תַּ</p>
+            <p class="cc c10">שְׁ</p>
+            <p class="cc c11">בֵּ</p>
+            <p class="cc c12">ץ</p>
+            <p class="cc c13">.</p>
+            <p class="cc c14">.</p>
+            <p class="cc c15">.</p>
+          </div>
 
-      <div id="vkeyboard">
-        <h3>Enter the correct letter</h3>
-        <div id="kbtnlist"></div>
-        <button onclick="$('#vkeyboard').hide()">
-          <i class="fa fa-times"></i> Close
-        </button>
-      </div>
-    </div>
+        </div>
+        <div id="ttscontainer">
+          <div class="puzzle">
+            <div id="crossword"></div>
+            <div class="buttons">
+             
+<button onclick="toggleAnswer()">
+  <i class="fa fa-eye"></i><i class="fa fa-eye-slash"></i><span class="solution">הצג פתרון</span>
+</button>
+<button onclick="startttsgame()">
+  <i class="fa fa-refresh"></i> <span style="margin-right:.3rem">החלף תשבץ</span>
+</button>
+</div>
+</div>
+<div class="tables">
+  <div class="table">
+    <table id="clues">
+      <thead>
+        <tr>
+          <th>מאוזן</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="across"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="table">
+    <table id="clues">
+      <thead>
+        <tr>
+          <th>מאונך</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="down"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
 
-    <div id="appbar">
-      <span class="abitem" onclick="toggledrawer()"
-        ><i class="fa fa-bars"></i
-      ></span>
-      <span class="abitem2">תשבץ</span>
-      <span class="abitem" style="float: right" onclick="toggleAnswer()"
-        ><i class="fa fa-eye"></i
-      ><i class="fa fa-eye-slash"></i
-      ></span>
-    </div>
-    <div id="drawer">
-      <div class="ditem" onclick="setqcount(12)">
-        <i class="fa fa-edit"></i> קל
-      </div>
-      <div class="ditem" onclick="setqcount(20)">
-        <i class="fa fa-edit"></i> בינוני
-      </div>
-      <div class="ditem" onclick="setqcount(30)">
-        <i class="fa fa-edit"></i> קשה
-      </div>
-      <!-- <div class="ditem" onclick="resetsettings()">
-        <i class="fa fa-refresh"></i> איפוס
-      </div> -->
-    </div>
+<div id="vkeyboard">
+  <h3>Enter the correct letter</h3>
+  <div id="kbtnlist"></div>
+  <button onclick="$('#vkeyboard').hide()">
+    <i class="fa fa-times"></i> Close
+  </button>
+</div>
+</div>
 
-    <script>
-		function isMobile() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
+<div id="appbar">
+  <span class="abitem" onclick="toggledrawer()"
+    ><i class="fa fa-bars"></i
+  ></span>
+  <span class="abitem2">תשבץ</span>
+  <span class="abitem" style="float: right" onclick="toggleAnswer()"
+    ><i class="fa fa-eye"></i
+  ><i class="fa fa-eye-slash"></i
+  ></span>
+</div>
 
-      function setqcount(n) {
-        appdata.qcount = n
-        saveData()
-        location.reload()
-      }
+<div id="drawer">
+  <div class="ditem" onclick="setqcount(12)">
+    <i class="fa fa-edit"></i> קל
+  </div>
+  <div class="ditem" onclick="setqcount(20)">
+    <i class="fa fa-edit"></i> בינוני
+  </div>
+  <div class="ditem" onclick="setqcount(30)">
+    <i class="fa fa-edit"></i> קשה
+  </div>
+   <button id="screenshotButton">Take Screenshot</button>
+</div>
+<script>
+        document.getElementById('screenshotButton').onclick = function() {
+            fetch('/takeScreenshot', { method: 'POST' })
+            .then(response => response.blob())
+            .then(blob => {
+                // Create a new object URL for the blob
+                const url = window.URL.createObjectURL(blob);
 
-      function resetsettings() {
-        localStorage.clear()
-        location.reload()
-      }
-
-      function tsep(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      }
-
-      function vtext(text) {
-        var letters = /^[A-Za-z0-9]+$/
-        if (text.match(letters)) return true
-        else return false
-      }
-      function toggledrawer() {
-        $("#drawer").toggle()
-		$('#drawer').addClass("enter")
-      }
+                // Create a link and programatically click it to download the file
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'screenshot.pdf';
+                link.click();
+                
+                // Later, revoke the URL to avoid memory leaks
+                setTimeout(() => window.URL.revokeObjectURL(url), 60 * 1000);
+            });
+        };
     </script>
+ 
 
-    <script>
-		$('.fa-eye-slash').hide()
-      var canswershown = false
-      function toggleAnswer() {
-        if (canswershown) {
-          $(".canswer").hide()
-          $(".uanswer").show()
-		  $('.fa-eye-slash').hide()
-		  $('.fa-eye').show()
-		  $('.solution').html('הצג פתרון')
-
-          canswershown = false
-        } else {
-          $(".canswer").show()
-          $(".uanswer").hide()
-		  $('.fa-eye-slash').show()
-		  $('.fa-eye').hide()
-		  $('.solution').html('הסתר פתרון')
-		  
-          canswershown = true
-        }
-      }
-  function activatetts() {
-    $("td").each(function() {
-        $(this).attr('tabindex', '0');
-        $(this).attr('contentEditable', 'true');
-
-        $(this).on('keydown', function(event) {
-            var key = event.key;
-
-            // Regular expression to detect a Hebrew character
-            var hebrewCharRegex = /[\u0590-\u05FF]/;
-
-            // If the key is a single Hebrew letter (and not a control key), or the Backspace/Delete key
-            if ((key.length === 1 && key.match(hebrewCharRegex)) || key === 'Backspace' || key === 'Delete') {
-                // If a Hebrew letter key was pressed, replace the cell's content with the new letter.
-                // If the Backspace or Delete key was pressed, clear the cell's content.
-                $(this).text("");
-                if (key.length === 1 && key.match(hebrewCharRegex)) {
-                    $(this).append(key);
-                }
-            }
-
-            // Prevent propagation of the event, so the letter doesn't get appended twice (or deleted twice)
-            event.preventDefault();
-        });
-    });
-}
-
-
-
-
-
-      var selectedua = -1
-      function typechar(c) {
-        $("#" + selectedua).html(c)
-        $("#vkeyboard").hide()
-      }
-
-      function initvkeyboard() {
-        var chars = [
-          "א",
-          "ב",
-          "ג",
-          "ד",
-          "ה",
-          "ו",
-          "ז",
-          "ח",
-          "ט",
-          "י",
-          "כ",
-          "ל",
-          "מ",
-          "נ",
-          "ס",
-          "ע",
-          "פ",
-          "צ",
-          "ק",
-          "ר",
-          "ש",
-          "ת",
-        ]
-        for (var i = 0; i < chars.length; i++) {
-          $("#kbtnlist").append(
-            "<div class='kbtn' onclick=typechar('" +
-              chars[i] +
-              "')>" +
-              chars[i] +
-              "</div>"
-          )
-        }
-      }
-
-      setTimeout(function () {
-        startttsgame()
-        activatetts()
-        initvkeyboard()
-        $("#crossword").css({
-          width:
-            $("tbody:eq(0)").find("tr:eq(0)").find("td").length * 32 + "px",
-        })
-        $("#game").show()
-      }, 500)
-    </script>
-  </body>
+</body>
 </html>

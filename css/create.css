@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Alef';
+    src: url('/fonts/Alef-Regular.ttf') format('truetype'); 
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Alef';
+    src: url('/fonts/Alef-Bold.ttf') format('truetype'); 
+    font-weight: bold;
+}
+
+body {
+    font-family: 'Alef';
+    padding-top: 50px;
+  	padding-bottom: 70px;
+}
+#crossword-form {
+    display: grid;
+    place-items: center;
+}
+#crossword-input-form{
+    background: green;
+    width: max-content;
+}
+.input-fields {
+    padding: 0.5rem;
+}
+
+.clue {
+    width: 400px;
+}

@@ -9,6 +9,48 @@
     src: url('/fonts/Alef-Bold.ttf') format('truetype'); 
     font-weight: bold;
 }
+
+.wrapper{
+	display: grid;
+	place-items: center;
+	padding: 20px;
+	z-index: 1;
+}
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+  	left: 0;
+  	right: 0;
+  	bottom: 0;
+	width: 100vw;
+	min-height: 100vh;
+	background: #000000a4;
+	z-index: 0;
+}
+.bg {
+	position: fixed;
+	top: 0;
+  	left: 0;
+  	right: 0;
+  	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	background-image: url('/imgs/puzzletile.png');
+	z-index: 0;
+}
+.under {
+	position: fixed;
+	top: 0;
+  	left: 0;
+  	right: 0;
+  	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: #2a427a;
+	z-index: 0;
+}
 .abitem{
   	padding: 20px;
   	display: inline-block;
@@ -30,19 +72,20 @@ body{
   	padding-top: 50px;
   	padding-bottom: 70px;
   	user-select: none;
+	
 }
 button{
   	box-sizing: border-box;
   	width: 160px;
-  	padding: 20px;
+  	padding: 10px;
   	border: none;
   	outline: none;
   	background-color: #2a427a;
   	color: white;
 	font-size: 16px;
 	font-family: 'Alef';
-  	margin-top: 5px;
-  	margin-bottom: 5px;
+  	/* margin-top: 5px; */
+  	/* margin-bottom: 5px; */
 	box-shadow: 2px 2px 6px rgb(0,0,0,0.3);
 	transition: all .3s ease;
 }
@@ -55,8 +98,8 @@ button:hover{
 .crossword {
   	border-collapse:collapse;
   	/* font-family:"Courier New", Courier, monospace; */
-  	margin-top:10px;
-  	margin-bottom:10px;
+  	/* margin-top:10px;
+  	margin-bottom:10px; */
 }
 .crossword td {
   	border:1px solid black;
@@ -85,17 +128,33 @@ button:hover{
   	margin: 0 auto;
   	text-align: left:
 }
+.curtain {
+	position: fixed;
+	width: 100vw;
+	height: 150vh;
+	background: #000;
+	z-index: 20;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap:0
+}
+
+
+
 #drawer{
   	background-color: #e6e6e6;
   	width: 512px;
   	max-width: 85%;
-  	position: fixed;
+  	position: absolute;
   	right: 0;
   	top: 0;
   	bottom: 0;
   	padding-top: 70px;
-  	display: none;
+  	/* display: none; */
   	overflow: auto;
+	z-index: 5;
   	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
   	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
   	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
@@ -132,6 +191,17 @@ button:hover{
   	display: inline-block;
   	width: 30px;
 }
+.mehashev, .metashbetz {
+	display: flex;
+	position: absolute;	
+	color: white;
+	font-size: 7rem;
+	font-weight: bold;
+}
+
+.mehashev p, .metashbetz p {
+	padding: 5px;
+}
 .no-border{
   	background-color: black;
 }
@@ -152,19 +222,22 @@ button:hover{
 	overflow: scroll;
 	align-items: center;
 	justify-content: center;
-	margin-top: 30px;
+	background-color: #fff;
 }
 .solution {
 	margin-right:.3rem
 }
 .table {
 	overflow-x: auto;
+	font-family: 'Alef';
 }
 .tables {
 	display: flex;
 	flex-direction: column;
 	gap:1rem;
 	align-items: flex-start;
+	background-color: #fff;
+
 }
 th{
   	text-align: right;
@@ -176,6 +249,11 @@ th{
 	flex-direction: row;
 	gap:1rem;
 	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+	width: max-content;
+	padding: 25px;
+	z-index: 2;
 	/* justify-content: space-around; */
 }
 ul,li { list-style-type: none;
@@ -195,6 +273,7 @@ padding:0; }
   	padding: 10px;
   	z-index: 13;
 }
+
 ::-webkit-scrollbar {
   	width: 2px;
   	height: 2px;
